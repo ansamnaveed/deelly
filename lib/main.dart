@@ -1,11 +1,11 @@
-import 'package:deelly/View/Utilities/Routes/RoutePaths.dart';
-import 'package:deelly/View/Utilities/Routes/RouteStrings.dart';
+import 'package:deelly/services/routes/route_paths.dart';
+import 'package:deelly/services/routes/route_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import 'View/Screens/Splash/Splash.dart';
+import 'app_module/splash_screen/view/splash_screen.dart';
 
 void main() {
   runApp(MyApp());
