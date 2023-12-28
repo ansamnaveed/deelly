@@ -1,6 +1,5 @@
 import 'package:deelly/app_module/dashboard/controller/dashboard_controller.dart';
 import 'package:deelly/app_module/dashboard/model/dashboard_model.dart';
-import 'package:deelly/app_module/home_screen/view/home_page.dart';
 import 'package:deelly/utils/common_widgets/string_names.dart';
 import 'package:flutter/material.dart';
 
