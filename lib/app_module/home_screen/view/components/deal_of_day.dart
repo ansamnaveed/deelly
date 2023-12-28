@@ -10,7 +10,9 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class DealOfDay extends StatelessWidget {
-  DealOfDay({super.key});
+  DealOfDay({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

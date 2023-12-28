@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:deelly/utils/common_widgets/image_paths.dart';
 import 'package:deelly/utils/common_widgets/image_widget.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,5 @@
+import 'package:deelly/app_module/dashboard/controller/dashboard_controller.dart';
+import 'package:deelly/app_module/dashboard/view/components/dashboard_components.dart';
 import 'package:deelly/app_module/detail_page/view/components/address_bar.dart';
 import 'package:deelly/app_module/detail_page/view/components/deal_detail.dart';
 import 'package:deelly/app_module/detail_page/view/components/detail_page_appbar.dart';
@@ -15,14 +17,14 @@ import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class DetailPage extends StatefulWidget {
-  DetailPage({super.key});
+class DetailPageView extends StatefulWidget {
+  DetailPageView({super.key});
 
   @override
-  State<DetailPage> createState() => _DetailPageState();
+  State<DetailPageView> createState() => _DetailPageViewState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _DetailPageViewState extends State<DetailPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -693,6 +695,33 @@ class _DetailPageState extends State<DetailPage> {
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class DetailPage extends StatelessWidget {
+  DetailPage({super.key});
+  final dashboardController = Get.put(DashboardController());
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Obx(
+        () {
+          return Column(
+            children: [
+              Expanded(
+                child: mainViewOfWidgets(
+                  controller: dashboardController,
+                  screen: DetailPageView(),
+                ),
+              ),
+              bottomBarWidget(
+                controller: dashboardController,
+              )
+            ],
+          );
+        },
       ),
     );
   }

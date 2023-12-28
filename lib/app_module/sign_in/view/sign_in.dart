@@ -1,18 +1,23 @@
+import 'package:deelly/app_module/sign_in/controller/signin_controller.dart';
+import 'package:deelly/app_module/sign_in/view/components/country_dropdown.dart';
 import 'package:deelly/utils/common_widgets/image_paths.dart';
 import 'package:deelly/services/routes/route_strings.dart';
 import 'package:deelly/utils/common_widgets/string_names.dart';
 import 'package:deelly/utils/common_widgets/common_checkbox.dart';
 import 'package:deelly/utils/common_widgets/common_textfield.dart';
-import 'package:deelly/app_module/sign_in/view/components/country_dropdown.dart';
 import 'package:deelly/utils/common_widgets/gradient_btn.dart';
 import 'package:deelly/utils/common_widgets/image_widget.dart';
 import 'package:deelly/utils/common_widgets/simple_appbar.dart';
 import 'package:deelly/utils/extensions/textStyle_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+  SignIn({super.key});
+
+  TextEditingController passController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +52,9 @@ class SignIn extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                    child: CountryCodeDropdown(),
+                    child: CountryDropDown(
+                      phoneController: phoneController,
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 20.sp, bottom: 10, top: 30),
@@ -59,6 +66,7 @@ class SignIn extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.sp),
                     child: CommonTextField(
+                      textEditingController: passController,
                       password: true,
                       hint: StringNames.password,
                       keyboard: TextInputType.visiblePassword,
@@ -104,13 +112,22 @@ class SignIn extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(20.sp, 0, 20.sp, 0),
-                    child: GradientButton(
-                      width: double.infinity,
-                      text: StringNames.login,
-                      onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            RouteString.dashboard, (route) => false);
-                      },
+                    child: Obx(
+                      () => GradientButton(
+                        width: double.infinity,
+                        text: signInController.loading.isTrue
+                            ? "Loading......"
+                            : StringNames.login,
+                        onPressed: signInController.loading.isTrue
+                            ? () {}
+                            : () {
+                                signInController.signin(
+                                  phoneController.text,
+                                  passController.text,
+                                  context,
+                                );
+                              },
+                      ),
                     ),
                   )
                 ],
@@ -121,4 +138,6 @@ class SignIn extends StatelessWidget {
       ),
     );
   }
+
+  SignInController signInController = Get.put(SignInController());
 }

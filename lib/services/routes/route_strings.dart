@@ -5,4 +5,5 @@ class RouteString {
   static const String sign_up = "/sign_up";
   static const String dashboard = "/dashboard";
   static const String detail = "/detail";
+  static const String home = "/home";
 }

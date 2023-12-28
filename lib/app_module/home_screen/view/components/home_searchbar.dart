@@ -20,6 +20,7 @@ class HomeSearchBar extends StatelessWidget {
               prefixIcon: Icon(
                 Icons.search_rounded,
               ),
+              textEditingController: TextEditingController(),
             ),
           ),
           SizedBox(

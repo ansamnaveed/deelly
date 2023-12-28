@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:deelly/utils/common_widgets/string_names.dart';
 import 'package:deelly/utils/extensions/colors_extensions.dart';
 import 'package:deelly/utils/extensions/textStyle_extensions.dart';
@@ -7,12 +9,15 @@ import 'dart:convert';
 
 import 'package:sizer/sizer.dart';
 
-class CountryCodeDropdown extends StatefulWidget {
+class CountryDropDown extends StatefulWidget {
+  TextEditingController phoneController;
+  CountryDropDown({super.key, required this.phoneController});
+
   @override
-  _CountryCodeDropdownState createState() => _CountryCodeDropdownState();
+  State<CountryDropDown> createState() => _CountryDropDownState();
 }
 
-class _CountryCodeDropdownState extends State<CountryCodeDropdown> {
+class _CountryDropDownState extends State<CountryDropDown> {
   List<dynamic> _countryCodes = [];
   String _selectedCode = '';
 
@@ -38,6 +43,7 @@ class _CountryCodeDropdownState extends State<CountryCodeDropdown> {
     return SizedBox(
       height: 50,
       child: TextFormField(
+        controller: widget.phoneController,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
           prefixIconConstraints: BoxConstraints(),

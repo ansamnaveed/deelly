@@ -25,88 +25,61 @@ Widget bottomBarWidget({required DashboardController controller}) {
       children: [
         for (int i = 0; i < dashboardBarDataList.length; i++)
           InkWell(
-              onTap: () {
-                controller.updateBottomSelectedIndex(i);
-              },
-              child: Container(
-                padding: controller.bottomSelectedIndex.value == i
-                    ? EdgeInsets.symmetric(horizontal: 22)
-                    : EdgeInsets.all(0),
-                width: controller.bottomSelectedIndex.value == i ? 130 : 24,
-                height: 50,
-                decoration: controller.bottomSelectedIndex.value == i
-                    ? BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: LinearGradient(
-                          begin: Alignment(1.00, -0.06),
-                          end: Alignment(-1, 0.06),
-                          colors: [
-                            Color(0xFF5ACD84),
-                            Color(0xFF56ADFF),
-                          ],
-                        ),
-                      )
-                    : BoxDecoration(),
-                child: controller.bottomSelectedIndex.value == i
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Image(
-                            image: AssetImage(
-                              dashboardBarDataList[i].icon!,
-                            ),
-                            color: Colors.white,
-                            width: 24,
-                            height: 24,
-                          ),
-                          Text(
-                            dashboardBarDataList[i].title!,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          )
+            onTap: () {
+              controller.updateBottomSelectedIndex(i);
+            },
+            child: Container(
+              padding: controller.bottomSelectedIndex.value == i
+                  ? EdgeInsets.symmetric(horizontal: 22)
+                  : EdgeInsets.all(0),
+              width: controller.bottomSelectedIndex.value == i ? 130 : 24,
+              height: 50,
+              decoration: controller.bottomSelectedIndex.value == i
+                  ? BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                        begin: Alignment(1.00, -0.06),
+                        end: Alignment(-1, 0.06),
+                        colors: [
+                          Color(0xFF5ACD84),
+                          Color(0xFF56ADFF),
                         ],
-                      )
-                    : Image(
-                        image: AssetImage(
-                          dashboardBarDataList[i].icon!,
-                        ),
-                        color: Colors.black.withOpacity(0.2),
-                        width: 24,
-                        height: 24,
                       ),
-              )
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.center,
-              //   children: [
-              //     Spacer(),
-              //     SizedBox(
-              //       height: 20,
-              //       width: 20,
-              //       child: Image.asset(
-              //         dashboardBarDataList[i].icon!,
-              //         // color: controller.bottomSelectedIndex.value == i
-              //         //     ? AppColors.WHHITE_COLOR
-              //         //     : AppColors.GREY_COLOR,
-              //       ),
-              //     ),
-              //     const SizedBox(
-              //       height: 5,
-              //     ),
-              //     // AppText(
-              //     //   text: dashboardBarDataList[i].title!,
-              //     //   size: AppDimensions.FONT_SIZE_10,
-              //     //   color: controller.bottomSelectedIndex.value == i
-              //     //       ? AppColors.WHHITE_COLOR
-              //     //       : AppColors.GREY_COLOR,
-              //     // )
-              //   ],
-              // ),
-              )
+                    )
+                  : BoxDecoration(),
+              child: controller.bottomSelectedIndex.value == i
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Image(
+                          image: AssetImage(
+                            dashboardBarDataList[i].icon!,
+                          ),
+                          color: Colors.white,
+                          width: 24,
+                          height: 24,
+                        ),
+                        Text(
+                          dashboardBarDataList[i].title!,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        )
+                      ],
+                    )
+                  : Image(
+                      image: AssetImage(
+                        dashboardBarDataList[i].icon!,
+                      ),
+                      color: Colors.black.withOpacity(0.2),
+                      width: 24,
+                      height: 24,
+                    ),
+            ),
+          )
       ],
     ),
   );
@@ -114,9 +87,10 @@ Widget bottomBarWidget({required DashboardController controller}) {
 
 ///      Main Widgets of Dashboard
 
-Widget mainViewOfWidgets({required DashboardController controller}) {
+Widget mainViewOfWidgets(
+    {required DashboardController controller, required Widget screen}) {
   List<Widget> mainWidgetsList = [
-    HomeScreen(),
+    screen,
     Center(
       child: Text(
         StringNames.coming_soon,

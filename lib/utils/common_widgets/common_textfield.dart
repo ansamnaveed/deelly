@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class CommonTextField extends StatelessWidget {
+  TextEditingController textEditingController;
   String hint;
   bool password;
   TextInputType keyboard;
@@ -16,6 +17,7 @@ class CommonTextField extends StatelessWidget {
   CommonTextField(
       {super.key,
       required this.hint,
+      required this.textEditingController,
       this.password = false,
       this.keyboard = TextInputType.text,
       this.bgColor = Colors.white,
@@ -25,6 +27,7 @@ class CommonTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: textEditingController,
       obscureText: password,
       keyboardType: keyboard,
       decoration: InputDecoration(

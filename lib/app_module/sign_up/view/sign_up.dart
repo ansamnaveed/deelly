@@ -1,7 +1,7 @@
+import 'package:deelly/app_module/sign_up/controller/signup_controller.dart';
 import 'package:deelly/utils/common_widgets/image_paths.dart';
 import 'package:deelly/services/routes/route_strings.dart';
 import 'package:deelly/utils/common_widgets/string_names.dart';
-import 'package:deelly/utils/common_widgets/common_checkbox.dart';
 import 'package:deelly/utils/common_widgets/common_textfield.dart';
 import 'package:deelly/app_module/sign_in/view/components/country_dropdown.dart';
 import 'package:deelly/utils/common_widgets/gradient_btn.dart';
@@ -9,10 +9,18 @@ import 'package:deelly/utils/common_widgets/image_widget.dart';
 import 'package:deelly/utils/common_widgets/simple_appbar.dart';
 import 'package:deelly/utils/extensions/textStyle_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class SignUp extends StatelessWidget {
-  const SignUp({super.key});
+  SignUp({super.key});
+
+  TextEditingController fNameController = TextEditingController();
+  TextEditingController lNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+  TextEditingController cPassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +57,7 @@ class SignUp extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20.sp) +
                         EdgeInsets.only(bottom: 30),
                     child: CommonTextField(
-                      password: true,
+                      textEditingController: fNameController,
                       hint: StringNames.enter_first_name,
                     ),
                   ),
@@ -64,7 +72,7 @@ class SignUp extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20.sp) +
                         EdgeInsets.only(bottom: 30),
                     child: CommonTextField(
-                      password: true,
+                      textEditingController: lNameController,
                       hint: StringNames.enter_last_name,
                     ),
                   ),
@@ -79,7 +87,7 @@ class SignUp extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20.sp) +
                         EdgeInsets.only(bottom: 30),
                     child: CommonTextField(
-                      password: true,
+                      textEditingController: emailController,
                       hint: StringNames.enter_email,
                       keyboard: TextInputType.emailAddress,
                     ),
@@ -94,7 +102,9 @@ class SignUp extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.sp) +
                         EdgeInsets.only(bottom: 30),
-                    child: CountryCodeDropdown(),
+                    child: CountryDropDown(
+                      phoneController: phoneController,
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(left: 20.sp, bottom: 10),
@@ -107,6 +117,7 @@ class SignUp extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20.sp) +
                         EdgeInsets.only(bottom: 30),
                     child: CommonTextField(
+                      textEditingController: passController,
                       password: true,
                       hint: StringNames.create_password,
                       keyboard: TextInputType.visiblePassword,
@@ -122,6 +133,7 @@ class SignUp extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.sp),
                     child: CommonTextField(
+                      textEditingController: cPassController,
                       password: true,
                       hint: StringNames.confirm_password,
                       keyboard: TextInputType.visiblePassword,
@@ -155,12 +167,27 @@ class SignUp extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(20.sp, 0, 20.sp, 20.sp),
-                    child: GradientButton(
-                      width: double.infinity,
-                      text: StringNames.create_account,
-                      onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            RouteString.dashboard, (route) => false);
+                    child: Obx(
+                      () {
+                        return GradientButton(
+                          width: double.infinity,
+                          text: controller.loading.isTrue
+                              ? "Loading......"
+                              : StringNames.create_account,
+                          onPressed: controller.loading.isTrue
+                              ? () {}
+                              : () {
+                                  controller.signup(
+                                    fNameController.text,
+                                    lNameController.text,
+                                    emailController.text,
+                                    phoneController.text,
+                                    passController.text,
+                                    cPassController.text,
+                                    context,
+                                  );
+                                },
+                        );
                       },
                     ),
                   )
@@ -172,4 +199,6 @@ class SignUp extends StatelessWidget {
       ),
     );
   }
+
+  SignUpController controller = Get.put(SignUpController());
 }
